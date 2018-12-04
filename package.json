@@ -1,0 +1,23 @@
+{
+  "name": "jwt-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zach-chai/jwt-api.git"
+  },
+  "author": "Zachary Chai",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zach-chai/jwt-api/issues"
+  },
+  "homepage": "https://github.com/zach-chai/jwt-api#readme",
+  "dependencies": {
+    "koa": "^2.6.2"
+  },
+  "devDependencies": {}
+}
