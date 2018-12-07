@@ -1,11 +1,11 @@
-version: '3'
+version: '3.4'
 services:
 
   app:
     build:
       context: .
-      dockerfile: Dockerfile.dev
-    image: jwt-api_base:latest
+      target: dev
+    image: jwt-api:dev
     volumes:
       - '.:/opt/app'
       - node_modules:/opt/app/node_modules
