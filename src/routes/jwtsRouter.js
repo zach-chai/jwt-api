@@ -3,16 +3,24 @@ const jwt = require('jsonwebtoken');
 
 const router = new Router();
 
-router.get('/api/jwts', async (ctx) => {
-    ctx.body = 'Hello JWTs'
+router.prefix('/api/jwts')
+
+router.get('/', async (ctx) => {
+    ctx.body = {
+      data: []
+    }
 });
 
-router.post('/api/jwts/sign', async (ctx) => {
+router.post('/sign', async (ctx) => {
   if (ctx.request.body == null || Object.keys(ctx.request.body).length === 0) {
-    ctx.throw(422)
+    ctx.throw(422) // TODO return error message
   }
-  console.log(ctx.request.body)
+
   const data = ctx.request.body.data
+  if (data.key == null) {
+    ctx.throw(422) // TODO return error message
+  }
+
   let jwtOptions = {
       algorithm: data.alg,
 
@@ -27,7 +35,7 @@ router.post('/api/jwts/sign', async (ctx) => {
     jwtOptions.keyid = data.kid
   }
 
-  let jwtPayload = data.payload
+  let jwtPayload = data.payload || {}
   jwtPayload.exp = data.exp
   if (data.jti != null) {
     jwtPayload.jwtid = data.jti
