@@ -11,6 +11,8 @@ services:
       - node_modules:/opt/app/node_modules
     ports:
       - '3000:3000'
+    environment:
+      - APP_URL=localhost:3000
     stdin_open: true
     tty: true
 

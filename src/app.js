@@ -1,14 +1,16 @@
-const Koa = require('koa');
-const BodyParser = require('koa-bodyparser');
+const Koa = require('koa')
+const BodyParser = require('koa-bodyparser')
 
-const router = require('./routes/jwtsRouter')
-const app = new Koa();
+const indexRouter = require('./routes/indexRouter')
+const jwtRouter = require('./routes/jwtsRouter')
+const app = new Koa()
 
 // middlewares
-app.use(BodyParser());
-app.use(router.routes())
+app.use(BodyParser())
+app.use(jwtRouter.routes())
+app.use(indexRouter.routes())
 // app.use(router.allowedMethods())
 
-const server = app.listen(process.env.PORT || 3000);
+const server = app.listen(process.env.PORT || 3000)
 
 module.exports = server
