@@ -1,5 +1,4 @@
 const Router = require('koa-router')
-const jwt = require('jsonwebtoken')
 
 const APP_URL = process.env.APP_URL
 const router = new Router()

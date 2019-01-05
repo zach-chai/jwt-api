@@ -1,7 +1,7 @@
-const Router = require('koa-router');
-const jwt = require('jsonwebtoken');
+const Router = require('koa-router')
+const jwt = require('jsonwebtoken')
 
-const router = new Router();
+const router = new Router()
 
 router.prefix('/api/jwts')
 
@@ -9,7 +9,7 @@ router.get('/', async (ctx) => {
     ctx.body = {
       data: []
     }
-});
+})
 
 router.post('/sign', async (ctx) => {
   if (ctx.request.body == null || Object.keys(ctx.request.body).length === 0) {
@@ -48,6 +48,6 @@ router.post('/sign', async (ctx) => {
   ctx.body = {
     data: token
   }
-});
+})
 
-module.exports = router;
+module.exports = router
