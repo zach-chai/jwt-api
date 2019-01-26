@@ -13,12 +13,12 @@ router.get('/', async (ctx) => {
 
 router.post('/sign', async (ctx) => {
   if (ctx.request.body == null || Object.keys(ctx.request.body).length === 0) {
-    ctx.throw(422) // TODO return error message
+    ctx.throw(422, 'request body is null or empty')
   }
-
   const data = ctx.request.body.data
-  if (data.key == null) {
-    ctx.throw(422) // TODO return error message
+
+  if (!data.key) {
+    ctx.throw(422, 'data.key is not set')
   }
 
   let jwtOptions = {

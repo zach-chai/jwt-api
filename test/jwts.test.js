@@ -2,6 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const request = require('supertest')
 const jwt = require('jsonwebtoken')
+const _ = require('lodash')
 const server = require('../src/app')
 
 let ecdsaPrivateKey, ecdsaPublicKey
@@ -27,15 +28,9 @@ describe('JWTs', () => {
   })
 
   describe(`POST ${RESOURCE_ENDPOINT}/sign`, () => {
-    test('should sign and return a jwt', async () => {
-      const opts = {
-        algorithms: ['ES384'],
-        audience: 'audience',
-        issuer: 'issuer',
-        subject: 'subject'
-      }
-      const data = {
-        data: {
+    const buildData = (omit = []) => {
+      return {
+        data: _.omit({
           alg: 'ES384',
           key: ecdsaPrivateKey,
           iss: 'issuer',
@@ -46,11 +41,20 @@ describe('JWTs', () => {
           payload: {
             info: 'info'
           }
-        }
+        }, omit)
+      }
+    }
+
+    test('should sign and return a jwt', async () => {
+      const opts = {
+        algorithms: ['ES384'],
+        audience: 'audience',
+        issuer: 'issuer',
+        subject: 'subject'
       }
 
       const res = await request(server).post(`${RESOURCE_ENDPOINT}/sign`)
-                                       .send(data)
+                                       .send(buildData())
       expect(res.status).toEqual(200)
       expect(res.type).toEqual(CONTENT_TYPE)
 
@@ -63,6 +67,14 @@ describe('JWTs', () => {
       const res = await request(server).post(`${RESOURCE_ENDPOINT}/sign`)
                                        .send({})
       expect(res.status).toEqual(422)
+      expect(res.body.message).toEqual('request body is null or empty')
+    })
+
+    test('should return 422 for missing key', async () => {
+      const res = await request(server).post(`${RESOURCE_ENDPOINT}/sign`)
+                                       .send(buildData(['key']))
+      expect(res.status).toEqual(422)
+      expect(res.body.message).toEqual('data.key is not set')
     })
   })
 })
