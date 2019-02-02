@@ -1,5 +1,6 @@
 const Router = require('koa-router')
 const jwt = require('jsonwebtoken')
+const _ = require('lodash')
 
 const router = new Router()
 
@@ -20,30 +21,29 @@ router.post('/sign', async (ctx) => {
   if (!data.key) {
     ctx.throw(422, 'data.key is not set')
   }
+  if (!data.alg) {
+    ctx.throw(422, 'data.alg is not set')
+  }
 
   let jwtOptions = {
       algorithm: data.alg,
-
       issuer: data.iss,
-      audience: data.aud
+      audience: data.aud,
+      subject: data.sub,
+      jwtid: data.jti,
+      keyid: data.kid
   }
-
-  if (data.sub != null) {
-    jwtOptions.subject = data.sub
-  }
-  if (data.kid != null) {
-    jwtOptions.keyid = data.kid
-  }
+  jwtOptions = _.omitBy(jwtOptions, _.isUndefined)
 
   let jwtPayload = data.payload || {}
-  jwtPayload.exp = data.exp
-  if (data.jti != null) {
-    jwtPayload.jwtid = data.jti
-  }
+  Object.assign(jwtPayload, {
+    iat: data.iat,
+    exp: data.exp,
+    nbf: data.nbf
+  })
+  jwtPayload = _.omitBy(jwtPayload, _.isUndefined)
 
-  let jwtKey = data.key
-
-  let token = jwt.sign(jwtPayload, jwtKey, jwtOptions)
+  let token = jwt.sign(jwtPayload, data.key, jwtOptions)
 
   ctx.body = {
     data: token
