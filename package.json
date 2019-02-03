@@ -1,7 +1,7 @@
 {
   "name": "jwt-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "JWT API",
   "main": "index.js",
   "scripts": {
     "start": "nodemon --inspect=0.0.0.0:9229",
