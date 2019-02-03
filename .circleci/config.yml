@@ -4,6 +4,35 @@ orbs:
   docker-publish: circleci/docker-publish@0.1.4
 
 workflows:
-  build_and_publish_docker_image:
+  build_test_deploy_release:
     jobs:
       - docker-publish/publish
+      - test:
+          requires:
+            - docker-publish/publish
+
+jobs:
+  test:
+    executor: app_executor
+    working_directory: /opt/app
+    steps:
+      - run:
+          name: Install test dependencies
+          command: npm install --only=dev
+      - run:
+          name: Lint
+          command: npm run lint-ci
+      - run:
+          name: Test
+          command: npm run test-ci
+      - store_test_results:
+          path: reports/junit
+
+executors:
+  app_executor:
+    parameters:
+      tag:
+        type: string
+        default: $CIRCLE_SHA1
+    docker:
+      - image: zachchai/jwt-api:<< parameters.tag >>

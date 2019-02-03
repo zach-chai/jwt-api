@@ -13,6 +13,8 @@ services:
       - '3000:3000'
     environment:
       - APP_URL=localhost:3000
+    env_file:
+      - .env
     stdin_open: true
     tty: true
 
