@@ -89,20 +89,32 @@ orbs:
 workflows:
   build_test_release:
     jobs:
-      - build
+      - build:
+          filters:
+            tags:
+              only: /^v.*/
       - test:
           requires:
             - build
+          filters:
+            tags:
+              only: /^v.*/
       - publish:
           requires:
             - test
           filters:
+            tags:
+              only: /^v.*/
             branches:
               only:
                 - master
       - release:
           requires:
             - publish
+          filters:
+            branches:
+              only:
+                - master
 
 jobs:
   build:
