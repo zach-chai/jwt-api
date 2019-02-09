@@ -162,11 +162,11 @@ jobs:
           name: Tag Docker image
           command: |
             docker tag $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1 \
-                       $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:latest
+                       $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:${CIRCLE_TAG:-latest}
             docker tag $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1 \
                        registry.heroku.com/$HEROKU_APP/web
       - docker/push:
-          tag: latest
+          tag: ${CIRCLE_TAG:-latest}
       - docker/push:
           registry: registry.heroku.com
           image: $HEROKU_APP/web
