@@ -189,7 +189,10 @@ commands:
     steps:
       - run:
           name: Heroku release
-          command: heroku container:release web --app=<< parameters.app_name >>
+          command: |
+            if [[ $CIRCLE_NODE_INDEX == 0 ]]; then
+              heroku container:release web --app=<< parameters.app_name >>
+            fi
 
 executors:
   app_executor:
