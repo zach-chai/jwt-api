@@ -17,7 +17,7 @@ app.use(notFoundHandler)
 app.use(BodyParser())
 app.use(jwtRouter.routes())
 app.use(indexRouter.routes())
-// app.use(router.allowedMethods())
+// app.use(indexRouter.allowedMethods())
 
 const server = app.listen(process.env.PORT || 3000)
 

@@ -1,6 +1,6 @@
 const Router = require('koa-router')
 
-const APP_URL = process.env.APP_URL
+const APP_URL = process.env.APP_URL || ''
 const router = new Router()
 
 router.get('/', async (ctx) => {
