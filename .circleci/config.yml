@@ -2,89 +2,7 @@ version: 2.1
 
 orbs:
   heroku: circleci/heroku@0.0.4
-  docker:
-    commands:
-      login:
-        description: Docker login
-        parameters:
-          registry:
-            type: string
-            default: docker.io
-          user:
-            type: string
-          password:
-            type: string
-        steps:
-          - run:
-              name: Docker login
-              command: |
-                echo << parameters.password >> | \
-                docker login --password-stdin -u << parameters.user >> << parameters.registry >>
-      build:
-        description: Builds and Tags a Docker Image.
-        parameters:
-          registry:
-            type: string
-            default: docker.io
-          image:
-            type: string
-            default: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
-          tag:
-            type: string
-            default: $CIRCLE_SHA1
-          dockerfile:
-            type: string
-            default: Dockerfile
-          path:
-            type: string
-            default: .
-          extra_build_args:
-            type: string
-            default: ''
-        steps:
-          - run:
-              name: Build Docker Image
-              command: |
-                docker build \
-                  << parameters.extra_build_args >> \
-                  -f << parameters.dockerfile >> \
-                  -t << parameters.registry >>/<< parameters.image >>:<< parameters.tag >> \
-                  << parameters.path >>
-      pull:
-        description: Pulls a Docker image
-        parameters:
-          registry:
-            type: string
-            default: docker.io
-          image:
-            type: string
-            default: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
-          tag:
-            type: string
-            default: $CIRCLE_SHA1
-        steps:
-          - run:
-              name: Pull Docker Image
-              command: docker pull << parameters.registry >>/<< parameters.image >>:<< parameters.tag >>
-      push:
-        description: Pushes a Docker image
-        parameters:
-          registry:
-            type: string
-            default: docker.io
-          image:
-            type: string
-            default: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
-          tag:
-            type: string
-            default: $CIRCLE_SHA1
-        steps:
-          - run:
-              name: Push Docker image
-              command: |
-                if [[ $CIRCLE_NODE_INDEX == 0 ]]; then
-                  docker push << parameters.registry >>/<< parameters.image >>:<< parameters.tag >>
-                fi
+  docker: zachchai/docker@0.0.2
 
 workflows:
   build_test_release:
@@ -118,13 +36,11 @@ workflows:
 
 jobs:
   build:
-    executor: build_executor
+    executor: docker/default
     steps:
       - checkout
       - setup_remote_docker
-      - docker/login:
-          user: $DOCKER_LOGIN
-          password: $DOCKER_PASSWORD
+      - docker/login
       - docker/build
       - docker/push
   test:
@@ -145,14 +61,12 @@ jobs:
       - store_test_results:
           path: reports/junit
   publish:
-    executor: build_executor
+    executor: docker/default
     environment:
       HEROKU_APP: jwt-api-service
     steps:
       - setup_remote_docker
-      - docker/login:
-          user: $DOCKER_LOGIN
-          password: $DOCKER_PASSWORD
+      - docker/login
       - docker/login:
           registry: registry.heroku.com
           user: _
