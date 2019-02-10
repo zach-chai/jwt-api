@@ -2,12 +2,13 @@ version: 2.1
 
 orbs:
   heroku: circleci/heroku@0.0.4
-  docker: zachchai/docker@0.0.2
+  docker: zachchai/docker@0.1.0
 
 workflows:
   build_test_release:
     jobs:
-      - build:
+      - docker/build_push:
+          name: build
           filters:
             tags:
               only: /^v.*/
@@ -35,14 +36,6 @@ workflows:
                 - master
 
 jobs:
-  build:
-    executor: docker/default
-    steps:
-      - checkout
-      - setup_remote_docker
-      - docker/login
-      - docker/build
-      - docker/push
   test:
     executor: app_executor
     working_directory: /opt/app
