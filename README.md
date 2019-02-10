@@ -1,5 +1,7 @@
 # JWT API
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/zach-chai/jwt-api.svg)](https://greenkeeper.io/)
+
 An HTTP API wrapper for [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
 
 ## Quick Start
