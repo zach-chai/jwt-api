@@ -39,6 +39,41 @@ describe('JWTs', () => {
     })
   })
 
+  describe(`POST ${RESOURCE_PATH}/decode`, () => {
+    let token
+
+    const payload = {
+      name: 'Test user'
+    }
+
+    const options = {
+      algorithm: 'ES384',
+      issuer: 'issuer',
+      audience: 'audience'
+    }
+
+    beforeAll(() => {
+      reqSetup('post', `${RESOURCE_PATH}/decode`)
+    })
+
+    beforeEach(() => {
+      token = jwt.sign(payload, ecdsaPrivateKey, options)
+    })
+
+    test('should decode jwt', async () => {
+      const res = await req({ body: { data: { token } } })
+      expect(res.status).toEqual(200)
+
+      const decoded = jwt.decode(token, { complete: true })
+      expect(res.body.data).toEqual(_.pick(decoded, ['header', 'payload']))
+    })
+
+    test('should return 422 if data is empty', async () => {
+      const res = await req({ body: { data: {} } })
+      expect(res.status).toEqual(422)
+    })
+  })
+
   describe(`POST ${RESOURCE_PATH}/sign`, () => {
     beforeAll(() => {
       reqSetup('post', `${RESOURCE_PATH}/sign`)

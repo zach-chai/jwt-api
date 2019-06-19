@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --inspect=0.0.0.0:9229",
-    "test": "jest",
+    "test": "jest --runInBand",
     "test-ci": "jest --ci --runInBand --reporters=default --reporters=jest-junit",
     "lint": "esw src test",
     "lint-ci": "eslint --format junit -o reports/junit/js-lint-results.xml src test",

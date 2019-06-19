@@ -1,6 +1,6 @@
+const _ = require('lodash')
 const Router = require('koa-router')
 const jwt = require('jsonwebtoken')
-const _ = require('lodash')
 
 const router = new Router()
 
@@ -47,6 +47,22 @@ router.post('/sign', async (ctx) => {
 
   ctx.body = {
     data: token
+  }
+})
+
+router.post('/decode', async (ctx) => {
+  if (_.isEmpty(ctx.request.body.data)) {
+    ctx.throw(422, 'data is empty or missing')
+  }
+  const data = ctx.request.body.data
+
+  const { header, payload } = jwt.decode(data.token, { complete: true })
+
+  ctx.body = {
+    data: {
+      header,
+      payload
+    }
   }
 })
 
