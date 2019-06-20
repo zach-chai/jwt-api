@@ -1,6 +1,6 @@
 # JWT API
 
-[![CircleCI](https://circleci.com/gh/zach-chai/jwt-api.svg?style=svg)](https://circleci.com/gh/zach-chai/jwt-api)
+[![CircleCI](https://circleci.com/gh/zach-chai/jwt-api.svg?style=shield)](https://circleci.com/gh/zach-chai/jwt-api)
 [![Greenkeeper badge](https://badges.greenkeeper.io/zach-chai/jwt-api.svg)](https://greenkeeper.io/)
 
 An HTTP API wrapper for [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
