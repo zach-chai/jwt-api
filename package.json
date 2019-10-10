@@ -33,7 +33,7 @@
   "devDependencies": {
     "eslint": "^6.0.1",
     "eslint-plugin-import": "^2.18.0",
-    "eslint-watch": "^5.1.2",
+    "eslint-watch": "^6.0.1",
     "jest": "^24.1.0",
     "jest-junit": "^6.2.1",
     "nodemon": "^1.18.7",
