@@ -12,6 +12,9 @@ extends:
 parserOptions:
   ecmaVersion: 8
   sourceType: module
+  ecmaFeatures: {
+    experimentalObjectRestSpread: true
+  }
 rules:
   no-console: warn
   semi: ['error', 'never']

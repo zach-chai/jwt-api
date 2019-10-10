@@ -149,6 +149,45 @@ describe('JWTs', () => {
       expect(_.omit(decodedPayload.payload, 'iat')).toEqual({})
     })
   })
+
+  describe(`POST ${RESOURCE_PATH}/resign`, () => {
+    beforeAll(() => {
+      reqSetup('post', `${RESOURCE_PATH}/resign`)
+    })
+
+    const payload = {
+      name: 'Test user'
+    }
+
+    const options = {
+      algorithm: 'ES384',
+      issuer: 'issuer',
+      audience: 'audience'
+    }
+
+    let token
+
+    beforeEach(() => {
+      token = jwt.sign(payload, ecdsaPrivateKey, options)
+    })
+
+    test('should resign jwt', async () => {
+      const data = {
+        token,
+        key: ecdsaPrivateKey,
+        overwrite: {
+          payload: {
+            name: 'New Test User'
+          }
+        }
+      }
+
+      const res = await req({ body: { data } })
+      expect(res.status).toEqual(200)
+      const decoded = jwt.verify(res.body.data, ecdsaPublicKey, options)
+      expect(decoded.name).toEqual(data.overwrite.payload.name)
+    })
+  })
 })
 
 const defaultOptions = Object.freeze({
