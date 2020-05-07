@@ -27,7 +27,7 @@
     "koa-404-handler": "0.0.2",
     "koa-better-error-handler": "^3.0.5",
     "koa-bodyparser": "^4.3.0",
-    "koa-router": "^8.0.6",
+    "koa-router": "^8.0.8",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
