@@ -27,7 +27,7 @@
     "koa-404-handler": "0.0.2",
     "koa-better-error-handler": "^3.0.3",
     "koa-bodyparser": "^4.2.1",
-    "koa-router": "^7.4.0",
+    "koa-router": "^8.0.6",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
@@ -35,8 +35,8 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-watch": "^6.0.1",
     "jest": "^24.1.0",
-    "jest-junit": "^8.0.0",
     "nodemon": "^2.0.0",
+    "jest-junit": "^9.0.0",
     "supertest": "^4.0.2"
   }
 }
