@@ -142,6 +142,12 @@ describe('JWTs', () => {
       expect(res.body.message).toEqual('data.key is not set')
     })
 
+    test('should return 422 for missing algorithm', async () => {
+      const res = await req({ body: buildPayload({ omit: ['alg'] }) })
+      expect(res.status).toEqual(422)
+      expect(res.body.message).toEqual('data.alg is not set')
+    })
+
     test('should not require optional properties', async () => {
       const res = await req({ body: buildPayload({ pick: ['alg', 'key'] }) })
       expect(res.status).toEqual(200)
