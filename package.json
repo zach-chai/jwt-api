@@ -23,7 +23,7 @@
   "homepage": "https://github.com/zach-chai/jwt-api#readme",
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
-    "koa": "^2.12.1",
+    "koa": "^2.13.0",
     "koa-404-handler": "0.0.2",
     "koa-better-error-handler": "^4.0.3",
     "koa-bodyparser": "^4.3.0",
