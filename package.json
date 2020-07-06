@@ -31,7 +31,7 @@
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "eslint": "^7.3.1",
+    "eslint": "^7.4.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-watch": "^7.0.0",
     "jest": "^26.1.0",
