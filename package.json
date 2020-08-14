@@ -28,7 +28,7 @@
     "koa-better-error-handler": "^4.0.3",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^8.0.8",
-    "lodash": "^4.17.19"
+    "lodash": "^4.17.20"
   },
   "devDependencies": {
     "eslint": "^7.6.0",
