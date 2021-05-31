@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "eslint": "^7.27.0",
-    "eslint-plugin-import": "^2.23.3",
+    "eslint-plugin-import": "^2.23.4",
     "eslint-watch": "^7.0.0",
     "jest": "^27.0.3",
     "jest-junit": "^12.1.0",
