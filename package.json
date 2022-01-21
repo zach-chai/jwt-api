@@ -24,7 +24,7 @@
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.1",
-    "koa-404-handler": "0.0.2",
+    "koa-404-handler": "0.1.0",
     "koa-better-error-handler": "^4.0.3",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^9.4.0",
