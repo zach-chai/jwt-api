@@ -36,7 +36,7 @@
     "eslint-watch": "^7.0.0",
     "jest": "^27.5.1",
     "jest-junit": "^13.0.0",
-    "nodemon": "^2.0.15",
+    "nodemon": "^2.0.17",
     "supertest": "^6.2.2"
   }
 }
